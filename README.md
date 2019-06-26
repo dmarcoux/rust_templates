@@ -16,3 +16,7 @@ Details in [rustfmt.toml](./rustfmt.toml).
 
 Pin the project to a specific Rust version.
 Details [here](https://github.com/rust-lang/rustup.rs#the-toolchain-file).
+
+## [Dependabot](https://dependabot.com/)
+
+Automated dependency updates.
