@@ -11,3 +11,8 @@ Details in the file.
 
 Format Rust code according to style guidelines.
 Details in [rustfmt.toml](./rustfmt.toml).
+
+## rust-toolchain
+
+Pin the project to a specific Rust version.
+Details [here](https://github.com/rust-lang/rustup.rs#the-toolchain-file).
