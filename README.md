@@ -6,3 +6,8 @@ Templates for common files/configs I use in Rust projects.
 
 It changes whether the project is a library or a binary.
 Details in the file.
+
+## rustfmt
+
+Format Rust code according to style guidelines.
+Details in [rustfmt.toml](./rustfmt.toml).
