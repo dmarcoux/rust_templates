@@ -8,23 +8,18 @@ jobs:
       - image: circleci/rust:1.35.0-stretch
     steps:
       - checkout
-
       - run:
           name: Check if Cargo.lock is up to date
           command: cargo test --locked
-
       - run:
           name: Install rustfmt and check Rust code format
           command: rustup component add rustfmt && cargo fmt --all -- --check
-
       - run:
           name: Install clippy and lint Rust code # default settings + warnings for cargo
           command: rustup component add clippy && cargo clippy -- -W clippy::cargo
-
       - run:
           name: Compile Rust code
           command: cargo build
-
       - run:
           name: Run tests
           command: cargo test
