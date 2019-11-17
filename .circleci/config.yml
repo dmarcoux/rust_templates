@@ -5,7 +5,7 @@ jobs:
     parallelism: 1 # It's not needed to have parallelism right now
     docker:
       # https://hub.docker.com/r/circleci/rust
-      - image: circleci/rust:1.39.0-stretch
+      - image: circleci/rust:1.39.0-buster
     steps:
       - checkout
       - run:
