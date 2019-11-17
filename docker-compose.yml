@@ -1,0 +1,10 @@
+version: '3.4'
+# Usage for any service
+#   - Run shell inside container: docker-compose run --rm --service-ports SERVICE_NAME bash
+services:
+  rust_templates:
+    command: cargo run
+    image: rust:1.39.0-slim-buster
+    volumes:
+      - .:/rust_templates
+    working_dir: /rust_templates
