@@ -15,5 +15,5 @@ jobs:
           name: Install clippy and lint Rust code, failing on warnings from default linters and cargo manifest linters
           command: rustup component add clippy && cargo clippy -- --deny warnings --deny clippy::cargo
       - run:
-          name: Run tests
+          name: Run tests (while enforcing Cargo.lock to be up to date)
           command: cargo test --locked
