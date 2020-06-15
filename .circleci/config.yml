@@ -12,8 +12,8 @@ jobs:
           name: Check Rust code format
           command: cargo fmt --all -- --check
       - run:
-          name: Install clippy and lint Rust code, failing on warnings from default linters and cargo manifest linters
-          command: rustup component add clippy && cargo clippy -- --deny warnings --deny clippy::cargo
+          name: Install clippy and lint Rust code, failing on warnings from default linters and warning about cargo manifest linters
+          command: rustup component add clippy && cargo clippy -- --deny warnings --warn clippy::cargo
       - run:
           name: Run tests (while enforcing Cargo.lock to be up to date)
           command: cargo test --locked
