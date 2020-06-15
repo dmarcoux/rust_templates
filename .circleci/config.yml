@@ -17,3 +17,6 @@ jobs:
       - run:
           name: Run tests (while enforcing Cargo.lock to be up to date)
           command: cargo test --locked
+      - run:
+          name: Check dependencies for security vulnerabilities
+          command: cargo install cargo-audit && cargo audit
