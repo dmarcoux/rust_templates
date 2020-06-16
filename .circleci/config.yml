@@ -1,22 +1,92 @@
 # https://circleci.com/docs/2.0/
 version: 2
+
+images:
+  - &rust_image
+    # https://hub.docker.com/r/circleci/rust
+    image: circleci/rust:1.44.0-buster
+
 jobs:
-  build:
-    parallelism: 1 # It's not needed to have parallelism right now
+  checkout_code:
     docker:
-      # https://hub.docker.com/r/circleci/rust
-      - image: circleci/rust:1.44.0-buster
+      - <<: *rust_image
     steps:
       - checkout
       - run:
+          name: Output Rust environment
+          command: rustc --version; cargo --version; rustup --version;
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  check_code_format:
+    docker:
+      - <<: *rust_image
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
           name: Check Rust code format
           command: cargo fmt --all -- --check
+  lint_code:
+    docker:
+      - <<: *rust_image
+    steps:
+      - attach_workspace:
+          at: .
       - run:
-          name: Install clippy and lint Rust code, failing on warnings from default linters and warning about cargo manifest linters
-          command: rustup component add clippy && cargo clippy -- --deny clippy::all --warn clippy::cargo
+          name: Install clippy
+          command: rustup component add clippy
+      - run:
+          name: Lint Rust code, failing on warnings from default linters and warning about cargo manifest linters
+          command: cargo clippy -- --deny clippy::all --warn clippy::cargo
+  run_tests:
+    docker:
+      - <<: *rust_image
+    steps:
+      - attach_workspace:
+          at: .
       - run:
           name: Run tests (while enforcing Cargo.lock to be up to date)
           command: cargo test --locked
+  audit_dependencies:
+    docker:
+      - <<: *rust_image
+    steps:
+      - attach_workspace:
+          at: .
       - run:
-          name: Check dependencies for security vulnerabilities
-          command: cargo install cargo-audit && cargo audit
+          name: Set permissions for cache
+          command: |
+            sudo chown --recursive $(whoami):$(id --name --group) /usr/local/cargo
+      - restore_cache:
+          keys:
+            - cargo-audit-{{ arch }}
+      - run:
+          name: Install cargo-audit
+          command: cargo install cargo-audit
+      - save_cache:
+          paths:
+            - /usr/local/cargo
+          key: cargo-audit-{{ arch }}
+      - run:
+          name: Audit Cargo.lock files for crates with security vulnerabilities
+          command: cargo audit
+
+workflows:
+  version: 2
+  default:
+    jobs:
+      - checkout_code
+      - check_code_format:
+          requires:
+            - checkout_code
+      - lint_code:
+          requires:
+            - checkout_code
+      - run_tests:
+          requires:
+            - checkout_code
+      - audit_dependencies:
+          requires:
+            - checkout_code
