@@ -2,12 +2,12 @@ version: '3.4'
 # Usage for any service
 #   - Run shell inside container: docker-compose run --rm --service-ports SERVICE_NAME bash
 services:
-  rust_templates:
+  app:
     build: .
     volumes:
-      - .:/rust_templates
+      - .:/app
       - cargo_registry:/usr/local/cargo/registry/
-    working_dir: /rust_templates
+    working_dir: /app
 
 volumes:
   cargo_registry:
