@@ -8,6 +8,17 @@ services:
       - .:/app
       - cargo_registry:/usr/local/cargo/registry/
     working_dir: /app
+    ports:
+      - "8000:8000"
+  reverse_proxy:
+    image: nginx:1.19.1-alpine
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    depends_on:
+      # The nginx.conf refers to this service's name
+      - app
 
 volumes:
   cargo_registry:
