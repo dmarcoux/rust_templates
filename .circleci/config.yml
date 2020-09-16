@@ -47,8 +47,11 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Run tests (while enforcing Cargo.lock to be up to date)
-          command: cargo test --locked
+          name: Run tests
+          command: cargo test
+          # TODO: Depending on the type of application built
+          # name: Run tests (while enforcing Cargo.lock to be up to date)
+          # command: cargo test --locked
   audit_dependencies:
     docker:
       - <<: *rust_image
