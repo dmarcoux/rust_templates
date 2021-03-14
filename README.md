@@ -19,7 +19,7 @@ Details [here](https://github.com/rust-lang/rustup.rs#the-toolchain-file).
 
 ## [Dependabot](https://dependabot.com/)
 
-Automated dependency updates.
+Automated dependency updates. Details in the [config](./.github/dependabot.yml).
 
 ## [CircleCI](https://circleci.com/)
 
