@@ -49,7 +49,7 @@ jobs:
       - run:
           name: Run tests
           command: cargo test
-          # TODO: Depending on the type of application built
+          # CHANGEME: Depending on the type of application built
           # name: Run tests (while enforcing Cargo.lock to be up to date)
           # command: cargo test --locked
   audit_dependencies:
