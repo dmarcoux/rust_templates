@@ -1,4 +1,4 @@
-FROM rust:1.44.0-slim-buster
+FROM rust:1.50.0-slim-buster
 MAINTAINER Dany Marcoux
 
 # The base image initializes rustup with the "minimal" profile, so we're adding

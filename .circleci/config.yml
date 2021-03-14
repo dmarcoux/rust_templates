@@ -4,7 +4,7 @@ version: 2
 images:
   - &rust_image
     # https://hub.docker.com/r/circleci/rust
-    image: circleci/rust:1.44.0-buster
+    image: circleci/rust:1.50.0-buster
 
 jobs:
   checkout_code:
