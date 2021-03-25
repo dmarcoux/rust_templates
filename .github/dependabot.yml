@@ -8,3 +8,6 @@ updates:
       interval: "daily"
     labels:
       - "dependabot"
+    allow:
+      # Update direct and indirect dependencies
+      - dependency-type: "all"
