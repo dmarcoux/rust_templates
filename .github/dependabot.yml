@@ -6,8 +6,6 @@ updates:
     schedule:
       # Every weekday, Monday to Friday, at 5am UTC
       interval: "daily"
-    labels:
-      - "dependabot"
     allow:
       # Update direct and indirect dependencies
       - dependency-type: "all"
